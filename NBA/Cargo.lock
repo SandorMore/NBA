@@ -6,6 +6,7 @@ version = 4
 name = "NBA"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "argon2",
  "dotenvy",
  "rocket",
@@ -28,6 +29,12 @@ name = "allocator-api2"
 version = "0.2.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "683d7910e743518b0e34f1186f92494becacb047c7b6bf616c96772180fef923"
+
+[[package]]
+name = "anyhow"
+version = "1.0.104"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 
 [[package]]
 name = "argon2"
@@ -944,6 +951,7 @@ version = "0.37.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b1f111c8c41e7c61a49cd34e44c7619462967221a6443b0ec299e0ac30cfb9b1"
 dependencies = [
+ "cc",
  "pkg-config",
  "vcpkg",
 ]
@@ -1654,6 +1662,8 @@ dependencies = [
  "sha2 0.10.9",
  "smallvec",
  "thiserror 2.0.20",
+ "tokio",
+ "tokio-stream",
  "tracing",
  "url",
 ]
@@ -1693,6 +1703,7 @@ dependencies = [
  "sqlx-sqlite",
  "syn 2.0.119",
  "thiserror 2.0.20",
+ "tokio",
  "url",
 ]
 
