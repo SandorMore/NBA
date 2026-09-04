@@ -1,21 +1,24 @@
 #[allow(unused)]
-
 use sqlx::{Sqlite, SqlitePool};
 use dotenvy::dotenv;
 use std::env;
 
+use crate::sql_manager::finish_connection;
+
 
 #[macro_use] extern crate rocket;
-#[macro_use] extern crate tokio;
+extern crate tokio;
 
 
 pub mod hasher;
 pub mod sql_manager;
 
 #[rocket::main]
+#[allow(unused)]
 async fn main() -> Result<(), rocket::Error>
 {
-    dotenv();
+    dotenv()
+        .expect("Failed to set up dotenv");
     
     let db_url = env::var("DATABASE_URL")
         .expect("No database url");
@@ -29,6 +32,10 @@ async fn main() -> Result<(), rocket::Error>
         .launch()
         .await?;
 
+
+    finish_connection(&pool)
+        .await.expect("Closing failing!");
+    
     Ok(())
 }
 
@@ -36,5 +43,6 @@ async fn main() -> Result<(), rocket::Error>
 fn front_page() -> &'static str
 {
     println!("Main page opened");
+
     return "hello world";
 }   

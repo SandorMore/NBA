@@ -13,3 +13,10 @@ pub async fn establish_connection(db_url: &str) -> Result<SqlitePool, sqlx::Erro
 
     Ok(pool)
 }
+
+pub async fn finish_connection(pool: &SqlitePool) -> Result<(), sqlx::Error>
+{
+    pool.close().await;
+
+    Ok(())
+}
