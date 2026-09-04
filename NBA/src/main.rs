@@ -18,7 +18,7 @@ async fn main() -> Result<(), rocket::Error>
     dotenv();
     
     let db_url = env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be set");
+        .expect("No database url");
 
     let pool: SqlitePool = sql_manager::establish_connection(&db_url)
         .await
