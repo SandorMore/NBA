@@ -1,0 +1,79 @@
+:root {
+  --ink: #111318;
+  --muted: #6f737d;
+  --paper: #f5f5f2;
+  --surface: rgba(255, 255, 255, 0.82);
+  --line: #deded9;
+  --accent: #ed5b35;
+  --accent-dark: #c94220;
+}
+
+.app {
+  min-height: 100vh;
+  color: var(--ink);
+  background: radial-gradient(circle at 85% 18%, #f9c9a5 0, transparent 22%), var(--paper);
+  transition: background 250ms ease, color 250ms ease;
+}
+
+.darkTheme {
+  --ink: #f6f3ed;
+  --muted: #adb0b6;
+  --paper: #17191d;
+  --surface: rgba(31, 34, 40, 0.9);
+  --line: #393c43;
+  --accent: #ff7951;
+  --accent-dark: #ff936d;
+  background: radial-gradient(circle at 85% 18%, #583326 0, transparent 25%), var(--paper);
+}
+
+.navBar {
+  width: min(1180px, calc(100% - 48px));
+  min-height: 76px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand, .navLink, .authLink, .backLink { color: inherit; text-decoration: none; }
+.brand { display: flex; align-items: center; gap: 10px; font: 700 18px/1 Georgia, serif; letter-spacing: .02em; }
+.brandMark { display: grid; place-items: center; width: 30px; height: 30px; color: #fff; background: var(--accent); border-radius: 50%; font: 800 16px/1 Arial, sans-serif; }
+.brandAccent { color: var(--accent); }
+.mainNav { display: flex; gap: 8px; margin-left: auto; }
+.navLink { padding: 10px 15px; color: var(--muted); border-radius: 99px; font-size: 14px; transition: color 180ms ease, background 180ms ease; }
+.navLink:hover, .navLink.active { color: var(--ink); background: var(--surface); }
+.navActions { display: flex; align-items: center; gap: 18px; }
+.themeToggle { width: 38px; height: 38px; border: 1px solid var(--line); color: var(--ink); background: transparent; border-radius: 50%; cursor: pointer; font-size: 17px; }
+.authLink { color: var(--muted); font-size: 14px; }
+.authLink:hover { color: var(--ink); }
+.signInButton, .heroButton, .formButton { display: inline-flex; align-items: center; gap: 10px; border: 0; color: #fff; background: var(--accent); text-decoration: none; cursor: pointer; transition: background 180ms ease, transform 180ms ease; }
+.signInButton { padding: 12px 17px; border-radius: 5px; font-size: 14px; }
+.signInButton:hover, .heroButton:hover, .formButton:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+.homePage, .authPage { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+.homePage { padding: 16vh 0 20vh; }
+.eyebrow { color: var(--accent); font: 700 12px/1 Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+.homePage h1 { max-width: 700px; margin: 20px 0 22px; font: 700 clamp(52px, 8vw, 104px)/.9 Georgia, serif; letter-spacing: -.04em; }
+.homePage h1 em { color: var(--accent); font-style: italic; }
+.homePage p { max-width: 390px; color: var(--muted); font-size: 17px; line-height: 1.6; }
+.heroButton { margin-top: 34px; padding: 15px 20px; border-radius: 5px; font-size: 14px; }
+.authPage { display: grid; place-items: center; min-height: calc(100vh - 77px); }
+.authPanel { width: min(100%, 440px); padding: 44px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 24px 80px rgba(17, 19, 24, .08); }
+.authPanel h1 { margin: 14px 0 10px; font: 700 42px/1 Georgia, serif; letter-spacing: -.03em; }
+.authPanel > p { color: var(--muted); line-height: 1.5; }
+.authForm { display: grid; gap: 16px; margin-top: 30px; }
+.authForm label { display: grid; gap: 7px; color: var(--muted); font-size: 13px; }
+.authForm input { padding: 13px 14px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: var(--paper); font: inherit; outline-color: var(--accent); }
+.formButton { justify-content: center; padding: 14px; border-radius: 4px; font: inherit; }
+.backLink { display: inline-block; margin-top: 24px; color: var(--muted); font-size: 13px; }
+
+@media (max-width: 700px) {
+  .navBar { width: min(100% - 32px, 1180px); min-height: 68px; gap: 14px; }
+  .mainNav { display: none; }
+  .navActions { gap: 10px; margin-left: auto; }
+  .homePage, .authPage { width: calc(100% - 32px); }
+  .homePage { padding-top: 18vh; }
+  .authPanel { padding: 30px 22px; }
+}
