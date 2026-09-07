@@ -1,24 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Position } from '../types/enums'
-
 type ApiPlayer = {
-  id?: number
-  first_name?: string
-  last_name?: string
-  position?: Position
-  team?: { abbreviation?: string; full_name?: string }
-}
-
-type ApiPlayerResponse = Array<Omit<ApiPlayer, 'position'> & { position?: string }> | { data?: Array<Omit<ApiPlayer, 'position'> & { position?: string }> }
-
-function parsePosition(position?: string): Position | undefined {
-  if (position === Position.G || position === Position.F || position === Position.C) return position
-  return undefined
-}
-
-function getPlayers(response: ApiPlayerResponse): ApiPlayer[] {
-  const players = Array.isArray(response) ? response : response.data ?? []
-  return players.map((player) => ({ ...player, position: parsePosition(player.position) }))
+  id: number
+  name: string
+  rank: number
+  ppg: number
+  rpg: number
+  apg: number
+  bpm: number
 }
 
 export default function PlayerLeaderboard() {
@@ -32,10 +20,10 @@ export default function PlayerLeaderboard() {
 
     async function loadPlayers() {
       try {
-        const response = await fetch('http://127.0.0.1:8000/players', { signal: controller.signal })
+        const response = await fetch('http://127.0.0.1:8000/leaderboard?season=2024&limit=100', { signal: controller.signal })
         if (!response.ok) throw new Error(`Request failed with status ${response.status}`)
-        const payload = await response.json() as ApiPlayerResponse
-        setPlayers(getPlayers(payload))
+        const payload = await response.json() as ApiPlayer[]
+        setPlayers(payload)
       } catch (requestError) {
         if (requestError instanceof DOMException && requestError.name === 'AbortError') return
         setError(requestError instanceof Error ? requestError.message : 'Unable to load players.')
@@ -52,8 +40,7 @@ export default function PlayerLeaderboard() {
     const query = search.trim().toLowerCase()
     if (!query) return players
     return players.filter((player) => {
-      const fullName = `${player.first_name ?? ''} ${player.last_name ?? ''}`.toLowerCase()
-      return fullName.includes(query) || player.team?.full_name?.toLowerCase().includes(query)
+      return player.name.toLowerCase().includes(query)
     })
   }, [players, search])
 
@@ -63,7 +50,7 @@ export default function PlayerLeaderboard() {
         <div>
           <span className="eyebrow">League directory</span>
           <h1>Player leaderboard</h1>
-          <p>Explore the league’s active roster, ranked by the order returned from NBA hub.</p>
+          <p>Explore the 2024 season leaders ranked by box plus/minus.</p>
         </div>
         <label className="playerSearch">
           <span>⌕</span>
@@ -72,16 +59,18 @@ export default function PlayerLeaderboard() {
       </section>
 
       <section className="leaderboard" aria-live="polite">
-        <div className="leaderboardHeader"><span>Rank</span><span>Player</span><span>Team</span><span>Position</span></div>
+        <div className="leaderboardHeader"><span>Rank</span><span>Player</span><span>PPG</span><span>RPG</span><span>APG</span><span>BPM</span></div>
         {isLoading && <p className="leaderboardMessage">Loading players...</p>}
         {!isLoading && error && <p className="leaderboardMessage errorMessage">{error}. Make sure the backend is running on port 8000.</p>}
-        {!isLoading && !error && filteredPlayers.length === 0 && <p className="leaderboardMessage">No players match that search.</p>}
+        {!isLoading && !error && filteredPlayers.length === 0 && <p className="leaderboardMessage">No leaderboard data found. Run <code>cargo run -- sync 2024</code> from the NBA backend folder first.</p>}
         {!isLoading && !error && filteredPlayers.map((player, index) => (
-          <article className="playerRow" key={player.id ?? `${player.first_name}-${player.last_name}-${index}`}>
-            <span className="playerRank">{String(index + 1).padStart(2, '0')}</span>
-            <div className="playerName"><span className="playerAvatar">{player.first_name?.[0] ?? '?'}{player.last_name?.[0] ?? ''}</span><strong>{player.first_name} {player.last_name}</strong></div>
-            <span className="playerTeam">{player.team?.abbreviation ?? player.team?.full_name ?? 'Free agent'}</span>
-            <span className="playerPosition">{player.position || '—'}</span>
+          <article className="playerRow" key={player.id}>
+            <span className="playerRank">{String(player.rank || index + 1).padStart(2, '0')}</span>
+            <div className="playerName"><span className="playerAvatar">{player.name.split(' ').map((part) => part[0]).join('').slice(0, 2)}</span><strong>{player.name}</strong></div>
+            <span className="playerStat">{player.ppg.toFixed(1)}</span>
+            <span className="playerStat">{player.rpg.toFixed(1)}</span>
+            <span className="playerStat">{player.apg.toFixed(1)}</span>
+            <span className="playerStat playerBpm">{player.bpm > 0 ? '+' : ''}{player.bpm.toFixed(1)}</span>
           </article>
         ))}
       </section>

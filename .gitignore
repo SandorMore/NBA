@@ -1,3 +1,5 @@
 *.env
 /NBA/target
 *.db
+*.db-shm
+*.db-wal

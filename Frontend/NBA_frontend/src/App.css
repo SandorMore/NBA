@@ -76,7 +76,7 @@
 .playerSearch { display: flex; align-items: center; gap: 10px; width: min(100%, 285px); padding: 12px 14px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); }
 .playerSearch input { width: 100%; border: 0; outline: 0; color: var(--ink); background: transparent; font-size: 13px; }
 .leaderboard { border-top: 1px solid var(--ink); }
-.leaderboardHeader, .playerRow { display: grid; grid-template-columns: 90px 2fr 1fr 110px; align-items: center; gap: 20px; }
+.leaderboardHeader, .playerRow { display: grid; grid-template-columns: 72px minmax(190px, 2fr) repeat(4, minmax(58px, 0.7fr)); align-items: center; gap: 18px; }
 .leaderboardHeader { padding: 15px 18px; color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
 .playerRow { min-height: 76px; padding: 12px 18px; border-top: 1px solid var(--line); transition: background 180ms ease, padding 180ms ease; }
 .playerRow:hover { padding-left: 24px; background: var(--surface); }
@@ -87,7 +87,10 @@
 .playerName strong { font: 700 17px/1 Georgia, serif; }
 .playerTeam, .playerPosition { color: var(--muted); font-size: 14px; }
 .playerPosition { text-transform: uppercase; }
+.playerStat { color: var(--muted); font: 600 14px/1 Arial, sans-serif; }
+.playerBpm { color: var(--accent); }
 .leaderboardMessage { padding: 48px 18px; color: var(--muted); text-align: center; border-top: 1px solid var(--line); }
+.leaderboardMessage code { color: var(--ink); font-family: monospace; }
 .errorMessage { color: var(--accent); }
 
 @media (max-width: 700px) {
@@ -101,7 +104,9 @@
   .playersIntro { display: block; margin-bottom: 30px; }
   .playerSearch { margin-top: 24px; width: 100%; }
   .leaderboardHeader { display: none; }
-  .leaderboard .playerRow { grid-template-columns: 42px 1fr auto; gap: 10px; }
-  .playerPosition { display: none; }
+  .leaderboardHeader { display: grid; grid-template-columns: 38px 1fr 54px; gap: 10px; }
+  .leaderboardHeader span:nth-child(n + 4) { display: none; }
+  .leaderboard .playerRow { grid-template-columns: 38px 1fr 54px; gap: 10px; }
+  .playerStat:nth-last-child(-n + 3) { display: none; }
   .playerName strong { font-size: 15px; }
 }

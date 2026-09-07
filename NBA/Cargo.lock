@@ -12,6 +12,8 @@ dependencies = [
  "reqwest",
  "rocket",
  "rocket_ws",
+ "serde",
+ "serde_json",
  "sqlx",
  "tokio",
 ]
