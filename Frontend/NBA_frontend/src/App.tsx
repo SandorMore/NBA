@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import PlayerLeaderboard from './components/PlayerLeaderBoard'
 import './App.css'
 
 type AuthMode = 'login' | 'signin'
@@ -49,6 +50,8 @@ function AuthPage({ mode }: { mode: AuthMode }) {
   )
 }
 
+
+
 function App() {
   const [isDark, setIsDark] = useState(false)
 
@@ -59,6 +62,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<AuthPage mode="login" />} />
           <Route path="/signin" element={<AuthPage mode="signin" />} />
+          <Route path="/players" element={<PlayerLeaderboard />} />
           <Route path="*" element={<main className="homePage"><span className="eyebrow">The game, closer</span><h1>Everything NBA.<br /><em>In one place.</em></h1><p>Follow the players, teams, and moments that make the league impossible to ignore.</p><Link className="heroButton" to="/players">Explore the league <span aria-hidden="true">↗</span></Link></main>} />
         </Routes>
       </div>

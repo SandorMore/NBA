@@ -1,6 +1,6 @@
-CREATE TABLE USERS (
+CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL,
-    email TEXT NOT NULL,
+    username VARCHAR(30) NOT NULL,
+    email VARCHAR(50) NOT NULL,
     password_hash TEXT
 )

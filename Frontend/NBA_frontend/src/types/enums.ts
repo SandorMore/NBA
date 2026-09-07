@@ -1,6 +1,5 @@
-export enum Position  
-{
-    G,
-    F,
-    C
+export enum Position {
+    G = 'G',
+    F = 'F',
+    C = 'C',
 }

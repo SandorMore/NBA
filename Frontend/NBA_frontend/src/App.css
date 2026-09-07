@@ -69,6 +69,27 @@
 .formButton { justify-content: center; padding: 14px; border-radius: 4px; font: inherit; }
 .backLink { display: inline-block; margin-top: 24px; color: var(--muted); font-size: 13px; }
 
+.playersPage { width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding: 82px 0 100px; }
+.playersIntro { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 48px; }
+.playersIntro h1 { margin-top: 15px; font: 700 clamp(42px, 6vw, 76px)/.95 Georgia, serif; letter-spacing: -.04em; }
+.playersIntro p { max-width: 430px; margin-top: 16px; color: var(--muted); line-height: 1.5; }
+.playerSearch { display: flex; align-items: center; gap: 10px; width: min(100%, 285px); padding: 12px 14px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); }
+.playerSearch input { width: 100%; border: 0; outline: 0; color: var(--ink); background: transparent; font-size: 13px; }
+.leaderboard { border-top: 1px solid var(--ink); }
+.leaderboardHeader, .playerRow { display: grid; grid-template-columns: 90px 2fr 1fr 110px; align-items: center; gap: 20px; }
+.leaderboardHeader { padding: 15px 18px; color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.playerRow { min-height: 76px; padding: 12px 18px; border-top: 1px solid var(--line); transition: background 180ms ease, padding 180ms ease; }
+.playerRow:hover { padding-left: 24px; background: var(--surface); }
+.playerRank { color: var(--accent); font: 700 14px/1 Arial, sans-serif; }
+.playerName { display: flex; align-items: center; gap: 13px; }
+.playerAvatar { display: grid; place-items: center; width: 38px; height: 38px; color: var(--accent); background: #f8d9cc; border-radius: 50%; font: 700 12px/1 Arial, sans-serif; }
+.darkTheme .playerAvatar { background: #53342b; }
+.playerName strong { font: 700 17px/1 Georgia, serif; }
+.playerTeam, .playerPosition { color: var(--muted); font-size: 14px; }
+.playerPosition { text-transform: uppercase; }
+.leaderboardMessage { padding: 48px 18px; color: var(--muted); text-align: center; border-top: 1px solid var(--line); }
+.errorMessage { color: var(--accent); }
+
 @media (max-width: 700px) {
   .navBar { width: min(100% - 32px, 1180px); min-height: 68px; gap: 14px; }
   .mainNav { display: none; }
@@ -76,4 +97,11 @@
   .homePage, .authPage { width: calc(100% - 32px); }
   .homePage { padding-top: 18vh; }
   .authPanel { padding: 30px 22px; }
+  .playersPage { width: calc(100% - 32px); padding-top: 52px; }
+  .playersIntro { display: block; margin-bottom: 30px; }
+  .playerSearch { margin-top: 24px; width: 100%; }
+  .leaderboardHeader { display: none; }
+  .leaderboard .playerRow { grid-template-columns: 42px 1fr auto; gap: 10px; }
+  .playerPosition { display: none; }
+  .playerName strong { font-size: 15px; }
 }
